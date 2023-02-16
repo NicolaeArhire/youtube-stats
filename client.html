@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Youtube Stats</title>
+    <link rel="stylesheet" href="client.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="menu">
+        <button class="ytb_user" type="submit">Channel by User:</button>
+        <button class="ytb_ID" type="submit">Channel by ID:</button>
+        <button class="ytb_trendings" type="submit">See trendings</button>
+      </div>
+      <div class="search_form">
+        <div class="info_channel"></div>
+        <input type="text" class="paste_username" />
+        <div class="ytb_country">Channel Country:</div>
+        <div class="country_name"></div>
+        <div class="ytb_most_popular_video">Most Popular Video:</div>
+        <div class="most_popular_video"></div>
+        <div class="most_popular_video_views"></div>
+        <div class="ytb_subscribers">Channel Subscribers:</div>
+        <div class="subscribers_count"></div>
+        <div class="ytb_videos">Channel Total Videos:</div>
+        <div class="videos_count"></div>
+        <div class="ytb_views">Channel Total Views:</div>
+        <div class="views_count"></div>
+        <button class="info_button" type="submit">Check data</button>
+      </div>
+      <div class="trendings_data">
+        <div class="trending_pick">
+          <label class="trending_no0">Pick a country:</label>
+          <select class="country_list"></select>
+        </div>
+        <div class="trending_no1"></div>
+        <div class="trending_no1_views"></div>
+        <div class="trending_no2"></div>
+        <div class="trending_no2_views"></div>
+        <div class="trending_no3"></div>
+        <div class="trending_no3_views"></div>
+        <div class="trending_no4"></div>
+        <div class="trending_no4_views"></div>
+        <div class="trending_no5"></div>
+        <div class="trending_no5_views"></div>
+      </div>
+    </div>
+    <script src="client.js"></script>
+  </body>
+</html>
