@@ -1,2 +1,2 @@
 # youtube-stats
-Small app showing different stats for Youtube videos using Axios &amp; Cheerio
+Small web scrapping app showing different stats for Youtube videos
