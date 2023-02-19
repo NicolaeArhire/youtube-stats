@@ -1,2 +1,2 @@
 # youtube-stats
-Simple web scrapping app showing different stats for Youtube
+Simple web scrapping app showing different stats for Youtube.
