@@ -10,7 +10,6 @@ const cache = new LRU({ max: 500 });
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const cron = require("node-cron");
-const moment = require("moment-timezone");
 
 const apiKey = process.env.api_key;
 const senderMail = process.env.sender_mail;
@@ -29,6 +28,7 @@ oAuth2Client.setCredentials({ refresh_token: refreshToken });
 
 app.use(cors());
 
+// Get channel info by username
 app.get("/", (req, res) => {
   if (!req.query.username) {
     return res
@@ -80,6 +80,7 @@ app.get("/", (req, res) => {
     });
 });
 
+// Get channel info by ID
 app.get("/id/", (req, res) => {
   const chId = req.query.channelId;
   const cachedResponse = cache.get(chId);
@@ -110,6 +111,7 @@ app.get("/id/", (req, res) => {
     });
 });
 
+// Get trendings
 app.get("/trendings/", (req, res) => {
   const trendingCountry = req.query.trendingCountry;
   const cachedResponse = cache.get(trendingCountry);
@@ -131,10 +133,10 @@ app.get("/trendings/", (req, res) => {
     });
 });
 
-// E-mail sending
+// Send e-mails with trendings
 app.get("/emails/", (req, res) => {
   return fetch(
-    `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&regionCode=RO&maxResults=5&key=${apiKey}`
+    `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&regionCode=BE&maxResults=5&key=${apiKey}`
   )
     .then((res) => res.json())
     .then((data) => {
@@ -200,33 +202,33 @@ app.get("/emails/", (req, res) => {
           });
 
           const mailOptions = {
-            from: `Youtube Daily Trendings ▶️ <${senderMail}>`,
-            to: `${mailList.join(", ")}`,
+            from: `Youtube Daily Trendings ▶️ <noreply-${senderMail}>`,
+            bcc: `${mailList.join(", ")}`,
             subject: "Youtube Daily Trendings ▶️",
             text: "",
             html: `<body style="border-radius: 10px">
           <h3>Hi there,</h3>
-          <div style="margin-bottom: 10px">I hope everything goes according to schedule.</div>
+          <div style="margin-bottom: 10px">I hope everything goes perfect for you today.</div>
           <div style="margin-bottom: 20px">Please see below an updated list of the most popular Youtube videos in Romania, as of ${timeNow}:</div>
           <div style="margin-bottom: 20px"><br><br>
             <div>No. 1 - <a href="https://www.youtube.com/watch?v=${data.items[0].id}" target="blank" style="text-decoration:underline; padding: 5px;">${data.items[0].snippet.title}</a></div>
-            <div style="margin-left: 40px">&#x1F525; ${trendingNo1ViewCountNum} &nbsp; &nbsp; &#128077; ${trendingNo1LikesCountNum} &nbsp; &nbsp; &#128172; ${trendingNo1CommsCountNum}</div>
+            <div style="margin-left: 30px">&#x1F525; ${trendingNo1ViewCountNum} &nbsp; &nbsp; &#128077; ${trendingNo1LikesCountNum} &nbsp; &nbsp; &#128172; ${trendingNo1CommsCountNum}</div>
           </div>
           <div style="margin-bottom: 20px">
             <div>No. 2 - <a href="https://www.youtube.com/watch?v=${data.items[1].id}" target="blank" style="text-decoration:underline; padding: 5px;">${data.items[1].snippet.title}</a></div>
-            <div style="margin-left: 40px">&#x1F525; ${trendingNo2ViewCountNum} &nbsp; &nbsp; &#128077; ${trendingNo2LikesCountNum} &nbsp; &nbsp; &#128172; ${trendingNo2CommsCountNum}</div>
+            <div style="margin-left: 30px">&#x1F525; ${trendingNo2ViewCountNum} &nbsp; &nbsp; &#128077; ${trendingNo2LikesCountNum} &nbsp; &nbsp; &#128172; ${trendingNo2CommsCountNum}</div>
           </div>
           <div style="margin-bottom: 20px">
             <div>No. 3 - <a href="https://www.youtube.com/watch?v=${data.items[2].id}" target="blank" style="text-decoration:underline; padding: 5px;">${data.items[2].snippet.title}</a></div>
-            <div style="margin-left: 40px">&#x1F525; ${trendingNo3ViewCountNum} &nbsp; &nbsp; &#128077; ${trendingNo3LikesCountNum} &nbsp; &nbsp; &#128172; ${trendingNo3CommsCountNum}</div>
+            <div style="margin-left: 30px">&#x1F525; ${trendingNo3ViewCountNum} &nbsp; &nbsp; &#128077; ${trendingNo3LikesCountNum} &nbsp; &nbsp; &#128172; ${trendingNo3CommsCountNum}</div>
           </div>
           <div style="margin-bottom: 20px">
             <div>No. 4 - <a href="https://www.youtube.com/watch?v=${data.items[3].id}" target="blank" style="text-decoration:underline; padding: 5px;">${data.items[3].snippet.title}</a></div>
-            <div style="margin-left: 40px">&#x1F525; ${trendingNo4ViewCountNum} &nbsp; &nbsp; &#128077; ${trendingNo4LikesCountNum} &nbsp; &nbsp; &#128172; ${trendingNo4CommsCountNum}</div>
+            <div style="margin-left: 30px">&#x1F525; ${trendingNo4ViewCountNum} &nbsp; &nbsp; &#128077; ${trendingNo4LikesCountNum} &nbsp; &nbsp; &#128172; ${trendingNo4CommsCountNum}</div>
           </div>
           <div style="margin-bottom: 20px">
             <div>No. 5 - <a href="https://www.youtube.com/watch?v=${data.items[4].id}" target="blank" style="text-decoration:underline; padding: 5px;">${data.items[4].snippet.title}</a></div>
-            <div style="margin-left: 40px">&#x1F525; ${trendingNo5ViewCountNum} &nbsp; &nbsp; &#128077; ${trendingNo5LikesCountNum} &nbsp; &nbsp; &#128172; ${trendingNo5CommsCountNum}</div>
+            <div style="margin-left: 30px">&#x1F525; ${trendingNo5ViewCountNum} &nbsp; &nbsp; &#128077; ${trendingNo5LikesCountNum} &nbsp; &nbsp; &#128172; ${trendingNo5CommsCountNum}</div>
           </div>
           </body>`,
           };
@@ -242,7 +244,7 @@ app.get("/emails/", (req, res) => {
       // sendingEmail();
 
       cron.schedule(
-        "31 11 * * *",
+        "31 23 * * *",
         () => {
           sendingEmail();
         },
