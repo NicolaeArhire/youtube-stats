@@ -237,3 +237,18 @@ countryList.addEventListener("change", (event) => {
       trendingNo5Views.innerHTML = `<span style="color:white;">&#x1F525; ${trendingNo5ViewCountNum} &nbsp; &nbsp; &nbsp; &#128077; ${trendingNo5LikesCountNum} &nbsp; &nbsp; &nbsp; &#128172; ${trendingNo5CommsCountNum}</span>`;
     });
 });
+
+window.onload = function () {
+  var text = document.querySelector(".title");
+  var letters = text.innerText.split("");
+  text.innerText = "";
+
+  for (var i = 0; i < letters.length; i++) {
+    var span = document.createElement("span");
+    span.innerText = letters[i];
+    span.style.animationDelay = i * 0.1 + "s";
+    text.appendChild(span);
+  }
+
+  text.style.display = "inline-block";
+};

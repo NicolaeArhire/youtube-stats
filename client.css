@@ -6,8 +6,32 @@ body {
   background: rgb(8, 29, 75);
 }
 
+.title {
+  text-align: center;
+  font: bold 40px Sans-Serif;
+  color: rgba(184, 28, 28, 1);
+  text-shadow: 0 3px 0 rgba(218, 196, 196, 0.29);
+}
+
+.title span {
+  display: inline-block;
+  animation-name: letter-stagger;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+}
+
+.title span:nth-of-type(1) {
+  margin-left: 35px;
+}
+
+.title span:nth-of-type(8) {
+  margin-left: 30px;
+}
+
 .menu {
   margin-top: 20px;
+  margin-left: 25px;
   margin-bottom: 15px;
 }
 
@@ -104,13 +128,19 @@ body {
   color: rgb(10, 89, 126);
 }
 
-.ytb_user,
 .ytb_ID,
 .ytb_trendings {
   width: 120px;
   height: 30px;
   border-radius: 10px;
-  margin-left: 15px;
+  margin-left: 5px;
+  color: rgb(10, 89, 126);
+}
+
+.ytb_user {
+  width: 120px;
+  height: 30px;
+  border-radius: 10px;
   color: rgb(10, 89, 126);
 }
 
@@ -218,6 +248,17 @@ body {
   100% {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@keyframes letter-stagger {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
 }
 
